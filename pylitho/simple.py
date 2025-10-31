@@ -6,8 +6,8 @@ sys.path.append(".")
 import torch
 import torch.nn as nn
 
-from pycommon.settings import *
-import pycommon.utils as common 
+from OpenILT.pycommon.settings import *
+import OpenILT.pycommon.utils as common 
 
 
 class Kernel:
@@ -172,16 +172,16 @@ class LithoSim(nn.Module): # Mask -> Aerial -> Printed
         printedMin = torch.sigmoid(self._config["PrintSteepness"] * (aerialMin - self._config["TargetDensity"]))
         return printedNom, printedMax, printedMin
 
-if __name__ == "__main__":
-    import pycommon.glp as glp
-    lithosim = LithoSim("./config/lithosimple.txt")
-    image = glp.Design("./benchmark/ICCAD2013/M1_test1.glp").image()
-    image = torch.tensor(image > 0.0, dtype=REALTYPE, device=DEVICE)
-    printed = lithosim(image)
+# if __name__ == "__main__":
+#     import pycommon.glp as glp
+#     lithosim = LithoSim("./config/lithosimple.txt")
+#     image = glp.Design("./benchmark/ICCAD2013/M1_test1.glp").image()
+#     image = torch.tensor(image > 0.0, dtype=REALTYPE, device=DEVICE)
+#     printed = lithosim(image)
     
-    import matplotlib.pyplot as plt
-    plt.subplot(1, 2, 1)
-    plt.imshow(image.detach().cpu().numpy())
-    plt.subplot(1, 2, 2)
-    plt.imshow(printed[0].detach().cpu().numpy())
-    plt.show()
+#     import matplotlib.pyplot as plt
+#     plt.subplot(1, 2, 1)
+#     plt.imshow(image.detach().cpu().numpy())
+#     plt.subplot(1, 2, 2)
+#     plt.imshow(printed[0].detach().cpu().numpy())
+#     plt.show()
